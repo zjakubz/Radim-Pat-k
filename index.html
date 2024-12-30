@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radim Jiřík - Expert na vyjednávání & Bestseller autor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #937341;
+            --accent: #c5a572;
+            --text: #333333;
+            --light: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--light);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                        url('/api/placeholder/1920/1080') center/cover;
+            display: flex;
+            align-items: center;
+            color: var(--light);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            padding: 8rem 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .section.light {
+            background: var(--light);
+        }
+
+        .section.dark {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .book-section {
+            position: relative;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                        url('/api/placeholder/1920/1080') center/cover fixed;
+            color: var(--light);
+            padding: 10rem 2rem;
+        }
+
+        .books {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .book-image {
+            width: 200px;
+            height: 300px;
+            margin: 0 auto 2rem;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .testimonial {
+            background: #f8f8f8;
+            padding: 2rem;
+            border-radius: 1rem;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            position: absolute;
+            top: -1rem;
+            left: 1rem;
+            color: var(--accent);
+            opacity: 0.3;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--secondary);
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .stat {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-section {
+            background: var(--primary);
+            color: var(--light);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Radim Jiřík</h1>
+            <p>Špičkový expert na vyjednávání s více než 20letou praxí. Autor světových bestsellerů a prezident Asociace vyjednávačů.</p>
+            <a href="#contact" class="cta-button">Domluvit konzultaci</a>
+        </div>
+    </section>
+
+    <section class="section light">
+        <div class="container">
+            <h2>Transformuji umění vyjednávání</h2>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">20+</div>
+                    <p>Let zkušeností</p>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">1000+</div>
+                    <p>Spokojených klientů</p>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2</div>
+                    <p>Světové bestsellery</p>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <p>Zemí působnosti</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="book-section">
+        <div class="container">
+            <h2>Bestsellery</h2>
+            <div class="books">
+                <div class="book-card">
+                    <img src="/api/placeholder/200/300" alt="Empathic Legends Be" class="book-image">
+                    <h3>Empathic Legends Be</h3>
+                    <p>Světový bestseller, který mění pohled na empatické vyjednávání. Přeloženo do 25 jazyků.</p>
+                    <a href="#" class="cta-button">Více o knize</a>
+                </div>
+                <div class="book-card">
+                    <img src="/api/placeholder/200/300" alt="Umění vyjednat cokoliv" class="book-image">
+                    <h3>Umění vyjednat cokoliv</h3>
+                    <p>Komplexní průvodce světem profesionálního vyjednávání s praktickými technikami.</p>
+                    <a href="#" class="cta-button">Více o knize</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section light">
+        <div class="container">
+            <h2>Co o mně říkají klienti</h2>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <p>"Radimův přístup k vyjednávání změnil způsob, jakým vedu svou firmu. Jeho metody jsou jednoduše převratné."</p>
+                    <p><strong>- CEO, Mezinárodní korporace</strong></p>
+                </div>
+                <div class="testimonial">
+                    <p>"Jeho knihy jsou povinnou četbou pro každého, kdo chce být úspěšný v byznysu. Radim je skutečný expert."</p>
+                    <p><strong>- Generální ředitel, Fortune 500</strong></p>
+                </div>
+                <div class="testimonial">
+                    <p>"Díky Radimově metodologii jsme ušetřili miliony při vyjednávání s dodavateli. Naprostá špička v oboru."</p>
+                    <p><strong>- Obchodní ředitel, Nadnárodní společnost</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Pojďme společně posunout vaše vyjednávací schopnosti na další úroveň</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>Osobní konzultace</h3>
+                    <p>Individuální přístup šitý na míru vašim potřebám.</p>
+                    <a href="#" class="cta-button">Domluvit schůzku</a>
+                </div>
+                <div class="contact-card">
+                    <h3>Firemní workshopy</h3>
+                    <p>Transformujte vyjednávací schopnosti vašeho týmu.</p>
+                    <a href="#" class="cta-button">Zjistit více</a>
+                </div>
+                <div class="contact-card">
+                    <h3>Přednášky</h3>
+                    <p>Inspirativní vystoupení pro vaši akci.</p>
+                    <a href="#" class="cta-button">Rezervovat termín</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero animation
+        gsap.to('.hero-content', {
+            opacity: 1,
+            y: 0,
+            duration: 1.5,
+            ease: 'power3.out',
+            delay: 0.5
+        });
+
+        // Sections animation
+        gsap.utils.toArray('.section').forEach(section => {
+            gsap.to(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    scrub: 1
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+        });
+
+        // Stats counter animation
+        gsap.utils.toArray('.stat-number').forEach(stat => {
+            let target = parseFloat(stat.textContent);
+            gsap.to(stat, {
+                scrollTrigger: {
+                    trigger: stat,
+                    start: 'top 80%'
+                },
+                innerText: target,
+                duration: 2,
+                snap: { innerText: 1 },
+                ease: 'power1.inOut'
+            });
+        });
+
+        // Book cards animation
+        gsap.utils.toArray('.book-card').forEach(card => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+        });
+
+        // Testimonials animation
+        gsap.utils.toArray('.testimonial').forEach((testimonial, i) => {
+            gsap.from(testimonial, {
+                scrollTrigger: {
+                    trigger: testimonial,
+                    start: 'top 80%'
+                },
+                opacity: 0,
+                x: i % 2 === 0 ? -50 : 50,
+                duration: 1,
+                delay: i * 0.2,
+                ease: 'power3.out'
+            });
+        });
+    </script>
+</body>
+</html>
